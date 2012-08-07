@@ -1,5 +1,7 @@
 package com.mucwiz;
 
+import com.mucwiz.model.Quiz;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,8 +23,11 @@ public class CreateQuizActivity extends Activity {
 					EditText quizNameEditText = (EditText) findViewById(R.id.quiz_name);
 					
 					String quizName = quizNameEditText.getText().toString();
-					
+					Quiz q = Quiz.getInstance();
+					q.setKey(quizName);
+
 					Intent i = new Intent(CreateQuizActivity.this, EditQuizActivity.class);
+					
 					startActivity(i);
 				}
 			});
