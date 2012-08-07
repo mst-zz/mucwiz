@@ -37,7 +37,7 @@ object Application extends Controller {
     Ok(generate(Map("status"->"ok", "key"->key)))
      
   }
-  // {"key":"dummyKey", "player":"PowErPlayer"}
+  // {"key":"dummyKey", "player":"PowErPlayer", }
   // returns Json {"status": "ok" | "not found"}
   def join_quiz = Action (parse.json){ request =>
 
@@ -81,10 +81,31 @@ object Application extends Controller {
 	}
   }
   
+  //{"key":"dummyKey", "player":"SuperPlaey", "question_index":2, "answer":3}
+  // returns Json {"status": "ok" | "not found", quiz-jsonized}
+  def client_answer = Action (parse.json){ request =>
+	val key = (request.body \ "key").as[String]
+	val player = (request.body \ "player").as[String]
+	val questionIndex = (request.body \ "question_index").as[Int]
+	val answer = (request.body \ "answer").as[Int]
+	val quiz = QuizHandler.getQuiz(key)
+	
+	
+	quiz match {
+		case Some(quiz) => 
+			QuizHandler.setQuiz(key, Quiz.updateQuiz(quiz, player, questionIndex, answer))
+			Ok(generate(Map("status"->"ok")))
+		case None => Ok(generate(Map("status"->"not found")))
+			
+	}
+	}
+  
   //{ "key":"dummyKey", "questions": [ {"spotify_uri":"akwekfkake","type": "artist", "answers": ["Mchek", "Something"], correct_answer: 1}] }
   def generateJsonQuiz(quiz: Quiz, key: String) = {
 	  //val questionMap = quiz.questions.foldLeft(Map.empty[String])
-	  Map("key"->key, "questions"-> quiz.questions, "players"->quiz.players )
+	  //VÄRDELÖST men rätt: skriv en som jsonizar listan med tuplarna
+	  //val answerMap = quiz.answers.foreach(x => x.foreach() )
+	  Map("key"->key, "questions"-> quiz.questions, "players"->quiz.players, "answers"->quiz.answers )
   }
   
 }
