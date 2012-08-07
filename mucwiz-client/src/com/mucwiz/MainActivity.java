@@ -8,6 +8,9 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        if (false)//isLoggedIn())
+        	setContentView(R.layout.main);
+        else
+        	setContentView(R.layout.login);
     }
 }
