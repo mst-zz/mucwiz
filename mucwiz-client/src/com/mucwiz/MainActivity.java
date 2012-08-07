@@ -46,7 +46,7 @@ public class MainActivity extends Activity {
         b.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				setContentView(R.layout.main);
+				setContentView(R.layout.join_quiz);
 				attachMainMenuListeners();
 			}
 		});
@@ -55,6 +55,7 @@ public class MainActivity extends Activity {
         b.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				//TODO: log out
 				setContentView(R.layout.login);
 				attachLoginListeners();
 			}
