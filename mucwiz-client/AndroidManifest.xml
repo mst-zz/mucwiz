@@ -22,7 +22,10 @@
          <activity
             android:name=".CreateQuizActivity"
             android:label="@string/app_name" >
-         
+        </activity>
+        <activity
+            android:name=".EditQuizActivity"
+            android:label="@string/app_name" >
         </activity>
     </application>
 
