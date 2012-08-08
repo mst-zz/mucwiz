@@ -42,9 +42,9 @@ public class MucwizApi {
 		String quizString = client.getResponse();
 		System.out.println(quizString);
 		
-		Map<Object, Object> data = mapper.readValue(quizString, Map.class);
+		Map data = mapper.readValue(quizString, Map.class);
 		
-		Quiz q = mapper.readValue(quizString, Quiz.class);
+		Quiz q = mapper.readValue(mapper.writeValueAsString(data.get("quiz")), Quiz.class);
 		
 		return q;
 	}
