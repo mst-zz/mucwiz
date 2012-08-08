@@ -8,6 +8,13 @@ public class Question {
 	private List<String> alternatives;
 	private int correctAnswer;
 	
+	public Question(String spotifyUri, String type, List<String> alternatives, int correctAnswer) {
+		super();
+		this.spotifyUri = spotifyUri;
+		this.type = type;
+		this.alternatives = alternatives;
+		this.correctAnswer = correctAnswer;
+	}
 	public String getSpotifyUri() {
 		return spotifyUri;
 	}

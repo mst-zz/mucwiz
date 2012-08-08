@@ -1,12 +1,13 @@
 package com.mucwiz.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Quiz {
 	private String status;
 	private String key;
-	private List<Question> questions;
-	private List<String> players;
+	private List<Question> questions = new ArrayList<Question>();
+	private List<String> players = new ArrayList<String>();
 	
 	private static Quiz instance;
 	
