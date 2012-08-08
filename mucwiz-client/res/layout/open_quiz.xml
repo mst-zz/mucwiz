@@ -5,29 +5,34 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/quiz_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Joined the quiz:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:text="QUIZNAME"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/joined_quiz_name"
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="10dip"
         android:layout_marginTop="10dip"
-        android:text="QUIZ_NAME"
+        android:text="Waiting for players..."
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/textView2"
+    <Button
+        android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Waiting for Quiz to start"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:text="Start quiz" />
+
+    <ListView
+        android:id="@+id/player_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
 
 </LinearLayout>

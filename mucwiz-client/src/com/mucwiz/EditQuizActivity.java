@@ -1,6 +1,7 @@
 package com.mucwiz;
 
 import com.mucwiz.model.Quiz;
+import com.mucwiz.webservice.MucwizApi;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -31,5 +32,22 @@ public class EditQuizActivity extends Activity {
 			}
 		});
         
+        b = (Button) findViewById(R.id.open_quiz);
+        b.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				try {
+					MucwizApi.createQuiz(Quiz.getInstance());
+					Intent i = new Intent(EditQuizActivity.this, OpenQuizActivity.class);
+					
+					startActivity(i);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		});
 	}
 }

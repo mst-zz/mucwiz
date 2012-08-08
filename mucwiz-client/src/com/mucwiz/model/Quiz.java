@@ -49,4 +49,8 @@ public class Quiz {
 		this.players = players;
 	}
 
+	public static void setInstance(Quiz quiz) {
+		instance = quiz;
+	}
+
 }
