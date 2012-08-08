@@ -21,11 +21,9 @@ object Application extends Controller {
   def create_quiz = Action (parse.json){ request =>
 
     val key = (request.body \ "key").as[String]
-
     val questions = (request.body \ "questions").as[List[JsObject]]
-    val quiz = Quiz.makeQuiz()	
-    val newQuiz = questions.foldLeft(quiz){ (quizs,jsObj) => 
-    						Quiz.addQuestion(quizs, 
+    val newQuiz = questions.foldLeft(Quiz.makeQuiz()){ (quiz,jsObj) => 
+    						Quiz.addQuestion(quiz, 
     						(jsObj \ "spotify_uri").as[String],  
     						(jsObj \ "type").as[String], 
     						(jsObj \ "alternatives").as[List[String]],
@@ -59,8 +57,7 @@ object Application extends Controller {
 	val quiz = QuizHandler.getQuiz(key)
 	quiz match {
 			case Some(quiz) =>
-					val updates = quiz.updates
-					val jsonQuiz = Map("updated_answers"->updates, "key"->key)
+					val jsonQuiz = Map("updated_answers"->generateAnswerMap(quiz.updates), "key"->key)
 					QuizHandler.setQuiz(key, Quiz.emptyUpdates(quiz))
 					Ok(generate(Map("status"->"ok", "quiz"->jsonQuiz)))
 			case None => Ok(generate(Map("status"->"not found")))
@@ -90,8 +87,7 @@ object Application extends Controller {
 	val questionIndex = (request.body \ "question_index").as[Int]
 	val answer = (request.body \ "answer").as[Int]
 	val quiz = QuizHandler.getQuiz(key)
-	
-	
+
 	quiz match {
 		case Some(quiz) => 
 			QuizHandler.setQuiz(key, Quiz.updateQuiz(quiz, player, questionIndex, answer))
@@ -99,14 +95,16 @@ object Application extends Controller {
 		case None => Ok(generate(Map("status"->"not found")))
 			
 	}
-	}
+  }
   
   //{ "key":"dummyKey", "questions": [ {"spotify_uri":"akwekfkake","type": "artist", "answers": ["Mchek", "Something"], correct_answer: 1}] }
   def generateJsonQuiz(quiz: Quiz, key: String) = {
-
-	  //Answers: Map( List( (Int, Int) ) )
-	  val answerMap = quiz.answers.map(x => Map("player"->x._1, "answers"->x._2.map(y => Map("question_index"->y._1, "answer"->y._2 ))))
-	  Map("key"->key, "questions"-> quiz.questions, "players"->quiz.players, "answers"->answerMap )
+	  val answerMap = generateAnswerMap(quiz.answers)
+	  Map("key"->key, "questions"-> quiz.questions, "players"->quiz.players, "all_answers"->answerMap )
+  }
+  
+  def generateAnswerMap(answers: Map[String, List[(Int,Int)]]) = {
+	  answers.map(x => Map("player"->x._1, "answers"->x._2.map(y => Map("question_index"->y._1, "answer"->y._2 ))))
   }
   
 }

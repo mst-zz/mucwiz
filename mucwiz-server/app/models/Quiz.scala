@@ -31,7 +31,6 @@ object Quiz {
   def joinQuiz(quiz: Quiz, player: String): Quiz = {
     val cleanAnswers = List.range(0,quiz.questions.length).map(x=>(x,-1))
     val playerAnswers = quiz.answers + (player->cleanAnswers)
-    Console.print(playerAnswers)
     Quiz(quiz.status, quiz.players ::: List(player), quiz.questions, playerAnswers, quiz.updates )
   }
   
@@ -45,7 +44,7 @@ object Quiz {
     playerAnswers match {
       case Some(playerAnswers) => 
       	val updatedAnswers = playerAnswers.updated(questionIndex, (questionIndex, answer))
-      	Console.print(updatedAnswers)
+
       	val updates = quiz.updates.get(player)
       	updates match {
       	  case Some(updates) =>
