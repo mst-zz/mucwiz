@@ -170,6 +170,7 @@ public class AddQuestionsActivity extends Activity {
 			Map<String, Object> artistMap = (Map<String, Object>)o;
 			String alt = (String)artistMap.get("name");
 			results.add(alt);
+			System.out.println(alt);
 		}
 		
 		return results;
@@ -249,6 +250,7 @@ public class AddQuestionsActivity extends Activity {
 		Map<String, Object> map2 = (Map<String, Object>) map.get("track");
 		Map<String, Object> map3 = (Map<String, Object>) map2.get("externalids");
 		String s = (String) map3.get("spotify");
+		System.out.println(s);
 		return s;
 	}
 }
