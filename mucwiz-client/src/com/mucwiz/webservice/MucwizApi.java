@@ -22,6 +22,7 @@ public class MucwizApi {
 		ObjectMapper mapper = new ObjectMapper();
 		
 		String jsonData = mapper.writeValueAsString(quiz);
+		System.out.println(jsonData);
 		RestClient client = new RestClient(API_URL + "/mucwiz/create_quiz");
 		client.setContent(jsonData);
 		client.Execute(RequestMethod.POST);
@@ -62,15 +63,14 @@ public class MucwizApi {
         	quiz.setKey("testquiz");
         	
         	List<Question> questions = new ArrayList<Question>();
-        	Question q = new Question();
+        	
         	List<String> alternatives = new ArrayList<String>();
         	alternatives.add("bry");
         	alternatives.add("asd");
-        	q.setAlternatives(alternatives);
+        	Question q = new Question("sptofiy:://asdasdasd", "artist", alternatives, 0);
+        	
         	q.setCorrectAnswer(0);
         	questions.add(q);
-        	q.setType("artist");
-        	q.setSpotifyUri("sptofiy:://asdasdasd");
         	quiz.setQuestions(questions);
 			MucwizApi.createQuiz(Quiz.getInstance());
 		} catch (Exception e) {

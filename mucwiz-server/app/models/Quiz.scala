@@ -2,6 +2,7 @@ package models
 
 case class Question(
 		val spotifyUri: String,
+		val qType: String,
 		val alternatives: List[String],
 		val rightAnswer: Int
 		) 
@@ -20,10 +21,10 @@ object Quiz {
     Quiz("created", Nil, Nil, Map.empty, Map.empty)
     
   }
-  def addQuestion(quiz: Quiz, spotifyUri: String, question: String, alternatives: List[String], rightAnswer: Int): Quiz = {
+  def addQuestion(quiz: Quiz, spotifyUri: String, qType: String,alternatives: List[String], rightAnswer: Int): Quiz = {
     Quiz(quiz.status,
     	 quiz.players, 
-         Question(spotifyUri, alternatives, rightAnswer) :: quiz.questions, 
+         Question(spotifyUri, qType, alternatives, rightAnswer) :: quiz.questions, 
          quiz.answers, //TODO: remember to add -1 for persons
          quiz.updates)
   }
@@ -54,11 +55,11 @@ object Quiz {
       	    Quiz(quiz.status, quiz.players, quiz.questions, quiz.answers + (player->updatedAnswers), quiz.updates + (player->List((questionIndex,answer))) )
       	}
       case None => quiz
-      	
     }
-    
-    
-    
+  }
+  
+  def setStatus(quiz: Quiz, status: String) = {
+      Quiz(status, quiz.players, quiz.questions, quiz.answers, quiz.updates)
   }
 	
 }

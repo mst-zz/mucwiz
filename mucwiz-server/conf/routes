@@ -9,6 +9,8 @@ POST	/mucwiz/get_quiz			controllers.Application.get_quiz
 POST	/mucwiz/get_updated_quiz	controllers.Application.get_updated_quiz
 POST	/mucwiz/join_quiz			controllers.Application.join_quiz
 POST	/mucwiz/client_answer		controllers.Application.client_answer
+POST	/mucwiz/start_quiz			controllers.Application.start_quiz
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
