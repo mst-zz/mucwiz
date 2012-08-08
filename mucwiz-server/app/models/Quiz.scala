@@ -4,7 +4,7 @@ case class Question(
 		val spotifyUri: String,
 		val qType: String,
 		val alternatives: List[String],
-		val rightAnswer: Int
+		val correctAnswer: Int
 		) 
 
 case class Quiz(
@@ -21,10 +21,10 @@ object Quiz {
     Quiz("created", Nil, Nil, Map.empty, Map.empty)
     
   }
-  def addQuestion(quiz: Quiz, spotifyUri: String, qType: String,alternatives: List[String], rightAnswer: Int): Quiz = {
+  def addQuestion(quiz: Quiz, spotifyUri: String, qType: String,alternatives: List[String], correctAnswer: Int): Quiz = {
     Quiz(quiz.status,
     	 quiz.players, 
-         Question(spotifyUri, qType, alternatives, rightAnswer) :: quiz.questions, 
+         Question(spotifyUri, qType, alternatives, correctAnswer) :: quiz.questions, 
          quiz.answers, //TODO: remember to add -1 for persons
          quiz.updates)
   }

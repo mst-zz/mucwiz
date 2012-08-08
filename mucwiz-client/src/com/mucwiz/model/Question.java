@@ -32,6 +32,11 @@ public class Question {
 	public void setQType(String type) {
 		this.qType = type;
 	}
+	
+	public void setqType(String type) {
+		this.qType = type;
+	}
+	
 	public List<String> getAlternatives() {
 		return alternatives;
 	}
