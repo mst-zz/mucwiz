@@ -25,7 +25,7 @@ object Application extends Controller {
     val newQuiz = questions.foldLeft(Quiz.makeQuiz()){ (quiz,jsObj) => 
     						Quiz.addQuestion(quiz, 
     						(jsObj \ "spotifyUri").as[String],  
-    						(jsObj \ "qType").as[String], 
+    						(jsObj \ "qtype").as[String], 
     						(jsObj \ "alternatives").as[List[String]],
     						(jsObj \ "correctAnswer").as[Int])	
     						}
