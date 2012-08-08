@@ -18,6 +18,8 @@ public class EditQuizActivity extends Activity {
 		
 		TextView quizName = (TextView) findViewById(R.id.quiz_name);
 		quizName.setText(Quiz.getInstance().getKey());
+		TextView noOfQuestion = (TextView) findViewById(R.id.number_of_questions);
+		noOfQuestion.setText(""+Quiz.getInstance().getQuestions().size());
 		
 		Button b = (Button) findViewById(R.id.add_questions);
         b.setOnClickListener(new OnClickListener() {
