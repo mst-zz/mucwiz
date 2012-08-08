@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/svn/!svn/ver/7/trunk/Include/Spotify
+END
+PlayListElement.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/7/trunk/Include/Spotify/PlayListElement.h
+END
+PlayListFolder.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/7/trunk/Include/Spotify/PlayListFolder.h
+END
+Album.h
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/7/trunk/Include/Spotify/Album.h
+END
+PlayList.h
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/7/trunk/Include/Spotify/PlayList.h
+END
+Image.h
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/7/trunk/Include/Spotify/Image.h
+END
+Session.h
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/7/trunk/Include/Spotify/Session.h
+END
+Track.h
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/7/trunk/Include/Spotify/Track.h
+END
+PlayListContainer.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/7/trunk/Include/Spotify/PlayListContainer.h
+END
+Artist.h
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/7/trunk/Include/Spotify/Artist.h
+END
