@@ -46,6 +46,7 @@ public class MucwizApi {
 		
 		Quiz q = mapper.readValue(mapper.writeValueAsString(data.get("quiz")), Quiz.class);
 		
+		
 		return q;
 	}
 	
