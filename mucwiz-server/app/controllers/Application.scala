@@ -16,7 +16,7 @@ object Application extends Controller {
   }
   
   
-  // { "key":"dummyKey", "questions": [ {"spotify_uri":"akwekfkake","type": "artist", "alternatives": ["Mchek", "Something"], correct_answer: 1}] }
+  // { "key":"dummyKey", "questions": [ {"spotifyUri":"akwekfkake","type": "artist", "alternatives": ["Mchek", "Something"], correctAnswer: 1}] }
   // returns: Json {"status":"ok", "key"->"dummyKey"}
   def create_quiz = Action (parse.json){ request =>
 
@@ -24,10 +24,10 @@ object Application extends Controller {
     val questions = (request.body \ "questions").as[List[JsObject]]
     val newQuiz = questions.foldLeft(Quiz.makeQuiz()){ (quiz,jsObj) => 
     						Quiz.addQuestion(quiz, 
-    						(jsObj \ "spotify_uri").as[String],  
+    						(jsObj \ "spotifyUri").as[String],  
     						(jsObj \ "type").as[String], 
     						(jsObj \ "alternatives").as[List[String]],
-    						(jsObj \ "correct_answer").as[Int])	
+    						(jsObj \ "correctAnswer").as[Int])	
     						}
 
     QuizHandler.setQuiz(key, newQuiz)
@@ -49,7 +49,8 @@ object Application extends Controller {
   				Ok(generate(Map("status"->"ok")))
   		case None => Ok(generate(Map("status"->"not found")))
   		}
-
+  	
+  	
   }
   //{"status": "ok" | "not found", updates (Map(playername -> List(indexofquestion, choise))}
   def get_updated_quiz = Action (parse.json){ request =>

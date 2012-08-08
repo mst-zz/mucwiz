@@ -1,5 +1,16 @@
 package com.mucwiz;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+
+import com.mucwiz.model.Question;
+import com.mucwiz.model.Quiz;
+import com.mucwiz.webservice.MucwizApi;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +22,7 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MucwizApi.testJoinQuiz();
         if (false)/*isLoggedIn()) */ {
         	setContentView(R.layout.main);
         	attachMainMenuListeners();

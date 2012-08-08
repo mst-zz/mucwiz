@@ -16,6 +16,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
@@ -28,6 +29,7 @@ public class RestClient {
     private ArrayList <NameValuePair> headers;
 
     private String url;
+    private String content;
 
     private int responseCode;
     private String message;
@@ -40,6 +42,10 @@ public class RestClient {
 
     public String getErrorMessage() {
         return message;
+    }
+    
+    public void setContent(String content) {
+    	this.content = content;
     }
 
     public int getResponseCode() {
@@ -87,6 +93,7 @@ public class RestClient {
                 }
 
                 HttpGet request = new HttpGet(url + combinedParams);
+                
 
                 //add headers
                 for(NameValuePair h : headers)
@@ -107,8 +114,13 @@ public class RestClient {
                     request.addHeader(h.getName(), h.getValue());
                 }
 
+                
                 if(!params.isEmpty()){
                     request.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+                } else if (content != null) {
+                	StringEntity se = new StringEntity(content);
+                	se.setContentType("application/json");
+                	request.setEntity(se);
                 }
 
                 executeRequest(request, url);
