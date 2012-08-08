@@ -40,35 +40,34 @@ public class MainActivity extends Activity {
         b.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				setContentView(R.layout.main);
-				attachMainMenuListeners();
-			}
-		});
-    }
-    
-    private void attachMainMenuListeners() {
-    	Button b = (Button)findViewById(R.id.create_quiz);
-        b.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
 				String user = ((EditText)findViewById(R.id.username)).getText().toString();
-				String password= ((EditText)findViewById(R.id.password)).getText().toString();
+				String password = ((EditText)findViewById(R.id.password)).getText().toString();
 				if (login(user, password)){
 					setContentView(R.layout.main);
-					Intent i = new Intent(MainActivity.this, CreateQuizActivity.class);
-					startActivity(i);
+					attachMainMenuListeners();
 				}
 				else
 	                Toast.makeText(getBaseContext(), "Incorrect username/password.", Toast.LENGTH_SHORT).show();
 			}
 		});
-	        
-        b = (Button)findViewById(R.id.join_quiz);
+    }
+    
+    private void attachMainMenuListeners() {
+    	Button b = (Button)findViewById(R.id.main_create_quiz_button);
         b.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				setContentView(R.layout.join_quiz);
-				attachMainMenuListeners();
+				Intent i = new Intent(MainActivity.this, CreateQuizActivity.class);
+				startActivity(i);
+			}
+		});
+	        
+        b = (Button)findViewById(R.id.main_join_quiz_button);
+        b.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(MainActivity.this, JoinActivity.class);
+				startActivity(i);
 			}
 		});
         

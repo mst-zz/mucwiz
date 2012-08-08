@@ -33,7 +33,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/join_button"
         android:layout_width="112dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"

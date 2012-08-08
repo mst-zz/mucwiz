@@ -6,13 +6,13 @@
     android:orientation="vertical" >
 
     <Button
-        android:id="@+id/create_quiz"
+        android:id="@+id/main_create_quiz_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Create Quiz" />
 
     <Button
-        android:id="@+id/join_quiz"
+        android:id="@+id/main_join_quiz_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Join Quiz" />
