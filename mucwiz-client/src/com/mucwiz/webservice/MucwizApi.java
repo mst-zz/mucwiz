@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -39,6 +40,10 @@ public class MucwizApi {
 		client.setContent(content);
 		client.Execute(RequestMethod.POST);
 		String quizString = client.getResponse();
+		System.out.println(quizString);
+		
+		Map<Object, Object> data = mapper.readValue(quizString, Map.class);
+		
 		Quiz q = mapper.readValue(quizString, Quiz.class);
 		
 		return q;
