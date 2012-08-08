@@ -25,6 +25,7 @@ public class JoinActivity extends Activity {
 				
 				try{
 					MucwizApi.joinQuiz(((EditText)findViewById(R.id.quiz_name)).getText().toString(), User.getInstance().getUsername());
+					Toast.makeText(getBaseContext(), "Joined game.", Toast.LENGTH_SHORT).show();
 				}
 				catch (Exception e){
 					Toast.makeText(getBaseContext(), "Could not join game.", Toast.LENGTH_SHORT).show();
