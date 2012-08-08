@@ -99,8 +99,8 @@ public class MainActivity extends Activity {
     
     private void spotifyLogin(String username, String password){
     	 File f = new File(Environment.getExternalStorageDirectory().getPath() + "/testcache/");
-
-         f = new File(Environment.getExternalStorageDirectory().getPath() + "/dummytracefile");
+    	 f.mkdir();
+    	 f = new File(Environment.getExternalStorageDirectory().getPath() + "/dummytracefile");
          try {
  			f.createNewFile();
  		} catch (IOException e) {
@@ -165,18 +165,18 @@ public class MainActivity extends Activity {
  		//session.GetTrackFromURI("spotify:track:0xAjq4KAQdJvUyCM7fFZ9K");
 
 // 		System.out.println("Main - logging out");
- 		session.Logout();
- 		while ( session.IsLoggedIn() )
- 		{
- 			session.Update();
- 		}		
+ 		//session.Logout();
+// 		while ( session.IsLoggedIn() )
+// 		{
+// 			session.Update();
+// 		}		
  		
  		
 // 		System.out.println("Main - session shutting down");
- 		session.Shutdown();
+ 		//session.Shutdown();
 // 		System.out.println("Main - session shutdown");
  		
- 		session = null;
+ 		//session = null;
  	
     	
     }
