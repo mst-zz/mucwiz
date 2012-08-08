@@ -115,7 +115,7 @@ object Application extends Controller {
   //{ "key":"dummyKey", "questions": [ {"spotify_uri":"akwekfkake","type": "artist", "answers": ["Mchek", "Something"], correct_answer: 1}] }
   def generateJsonQuiz(quiz: Quiz, key: String) = {
 	  val answerMap = generateAnswerMap(quiz.answers)
-	  Map("key"->key, "questions"-> quiz.questions, "players"->quiz.players, "all_answers"->answerMap )
+	  Map("key"->key, "questions"-> quiz.questions, "players"->quiz.players, "answers"->answerMap )
   }
   
   def generateAnswerMap(answers: Map[String, List[(Int,Int)]]) = {

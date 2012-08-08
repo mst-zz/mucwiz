@@ -1,13 +1,16 @@
 package com.mucwiz.model;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Quiz {
 	private String status;
 	private String key;
 	private List<Question> questions = new ArrayList<Question>();
 	private List<String> players = new ArrayList<String>();
+	private Map answers = new LinkedHashMap();
 	
 	private static Quiz instance;
 	
@@ -53,4 +56,11 @@ public class Quiz {
 		instance = quiz;
 	}
 
+	public Map getAnswers() {
+		return answers;
+	}
+	
+	public void setAnswers(Map answers) {
+		this.answers = answers;
+	}
 }
