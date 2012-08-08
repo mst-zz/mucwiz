@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.mucwiz.model.Quiz;
 import com.mucwiz.model.User;
 import com.mucwiz.webservice.MucwizApi;
 
@@ -25,6 +26,7 @@ public class JoinActivity extends Activity {
 				
 				try{
 					MucwizApi.joinQuiz(((EditText)findViewById(R.id.quiz_name)).getText().toString(), User.getInstance().getUsername());
+					Quiz.setInstance(MucwizApi.getQuiz(((EditText)findViewById(R.id.quiz_name)).getText().toString()));
 					Toast.makeText(getBaseContext(), "Joined game.", Toast.LENGTH_SHORT).show();
 				}
 				catch (Exception e){
@@ -32,7 +34,7 @@ public class JoinActivity extends Activity {
 				}
 				
 				setContentView(R.layout.main);
-				Intent i = new Intent(JoinActivity.this, MainActivity.class);
+				Intent i = new Intent(JoinActivity.this, JoinedActivity.class);
 				startActivity(i);
 			}
 		});

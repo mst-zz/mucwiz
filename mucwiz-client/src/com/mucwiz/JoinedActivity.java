@@ -20,8 +20,6 @@ public class JoinedActivity extends Activity {
         super.onCreate(savedInstanceState);
     	setContentView(R.layout.joined_quiz);
     	
-    	Quiz.se
-    	
-    	((TextView)findViewById(R.id.joined_quiz_name)).setText()
+    	((TextView)findViewById(R.id.joined_quiz_name)).setText(Quiz.getInstance().getKey());
     }
 }
