@@ -98,6 +98,20 @@ object Application extends Controller {
 	}
   }
   
+  def start_quiz = Action (parse.json){ request =>
+	val key = (request.body \ "key").as[String]
+	
+	val quiz = QuizHandler.getQuiz(key)
+
+	quiz match {
+		case Some(quiz) => 
+			QuizHandler.setQuiz(key, Quiz.setStatus(quiz, "started"))
+			Ok(generate(Map("status"->"ok")))
+		case None => Ok(generate(Map("status"->"not found")))
+			
+	}
+  }
+  
   //{ "key":"dummyKey", "questions": [ {"spotify_uri":"akwekfkake","type": "artist", "answers": ["Mchek", "Something"], correct_answer: 1}] }
   def generateJsonQuiz(quiz: Quiz, key: String) = {
 	  val answerMap = generateAnswerMap(quiz.answers)

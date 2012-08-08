@@ -54,11 +54,11 @@ object Quiz {
       	    Quiz(quiz.status, quiz.players, quiz.questions, quiz.answers + (player->updatedAnswers), quiz.updates + (player->List((questionIndex,answer))) )
       	}
       case None => quiz
-      	
     }
-    
-    
-    
+  }
+  
+  def setStatus(quiz: Quiz, status: String) = {
+      Quiz(status, quiz.players, quiz.questions, quiz.answers, quiz.updates)
   }
 	
 }
