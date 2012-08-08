@@ -30,5 +30,6 @@ public class EditQuizActivity extends Activity {
 				startActivity(i);
 			}
 		});
+        
 	}
 }
