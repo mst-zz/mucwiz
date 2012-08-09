@@ -92,7 +92,7 @@ public class MainActivity extends Activity {
     private boolean login(String username, String password){
     	User.getInstance().setUsername(username);
     	User.getInstance().setUsername(password);
-    	spotifyLogin(username, password);
+    	//spotifyLogin(username, password);
     	//TODO: login
     	return true;
     }
@@ -150,7 +150,6 @@ public class MainActivity extends Activity {
  		System.out.printf("Main - session initialised [%d]\n", error);
  		
  		System.out.println("Main - logging in");
- 		//session.Login( "Addeventure", "rulerer1337");
  		session.Login(username, password);
  		while ( !session.IsLoggedIn() )
  		{
