@@ -49,5 +49,15 @@ public class EditQuizActivity extends Activity {
 				
 			}
 		});
+        
+        b = (Button) findViewById(R.id.view_questions);
+        b.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(EditQuizActivity.this, ViewQuestionsActivity.class);
+				startActivity(i);
+			}
+        });
 	}
 }

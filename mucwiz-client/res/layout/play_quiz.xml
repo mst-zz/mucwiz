@@ -5,34 +5,67 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/quiz_name"
+        android:id="@+id/play_quiz_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="QUIZ_NAME"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/question_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Question X"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/play_question_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Question X"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/question"
+        android:id="@+id/play_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dip"
         android:layout_marginTop="10dip"
         android:text="THE QUESTION"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+	<RadioGroup
+	    android:id="@+id/play_rg"
+  		android:layout_width="fill_parent"
+   		android:layout_height="wrap_content"
+   		android:orientation="vertical">
+   		
+	    <RadioButton
+	        android:id="@+id/play_a1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"/>
+	
+	    <RadioButton
+	        android:id="@+id/play_a2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"/>
+	
+	    <RadioButton
+	        android:id="@+id/play_a3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"/>
+	    
+	    <RadioButton
+	        android:id="@+id/play_a4"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"/>
+	    
+	    <RadioButton
+	        android:id="@+id/play_a5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"/>
+    
+    </RadioGroup>
+    
+    <ProgressBar
+        android:id="@+id/play_progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="15sp"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -46,6 +46,18 @@
             android:name=".OpenQuizActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name=".ViewQuestionsActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".PlayActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".GameOverActivity"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>

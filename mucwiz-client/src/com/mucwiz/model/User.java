@@ -1,9 +1,12 @@
 package com.mucwiz.model;
 
+import Spotify.Session;
+
 public class User {
 	
 	private String username;
 	private String password;
+	private Session session;
 	
 	public String getUsername() {
 		return username;
@@ -19,6 +22,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public void setSession(Session session){
+		this.session = session;
+	}
+	
+	public Session getSession(){
+		return session;
 	}
 
 	private static User instance;

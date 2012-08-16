@@ -10,7 +10,7 @@ public class Quiz {
 	private String key;
 	private List<Question> questions = new ArrayList<Question>();
 	private List<String> players = new ArrayList<String>();
-	private Map answers = new LinkedHashMap();
+	private List answers = new ArrayList();
 	
 	private static Quiz instance;
 	
@@ -56,11 +56,11 @@ public class Quiz {
 		instance = quiz;
 	}
 
-	public Map getAnswers() {
+	public List getAnswers() {
 		return answers;
 	}
 	
-	public void setAnswers(Map answers) {
+	public void setAnswers(List answers) {
 		this.answers = answers;
 	}
 }

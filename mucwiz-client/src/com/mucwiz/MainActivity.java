@@ -82,7 +82,9 @@ public class MainActivity extends Activity {
         b.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//TODO: log out
+				User.getInstance().getSession().Logout();
+				User.getInstance().getSession().Shutdown();
+				User.getInstance().setSession(null);
 				setContentView(R.layout.login);
 				attachLoginListeners();
 			}
@@ -91,13 +93,16 @@ public class MainActivity extends Activity {
     
     private boolean login(String username, String password){
     	User.getInstance().setUsername(username);
-    	User.getInstance().setUsername(password);
-    	//spotifyLogin(username, password);
-    	//TODO: login
-    	return true;
+    	User.getInstance().setPassword(password);
+    	Session session = spotifyLogin(username, password);
+    	if (session.IsLoggedIn()){
+    		User.getInstance().setSession(session);
+    		return true;
+    	}
+    	return false;
     }
     
-    private void spotifyLogin(String username, String password){
+    private Session spotifyLogin(String username, String password){
     	 File f = new File(Environment.getExternalStorageDirectory().getPath() + "/testcache/");
     	 f.mkdir();
     	 f = new File(Environment.getExternalStorageDirectory().getPath() + "/dummytracefile");
@@ -144,12 +149,8 @@ public class MainActivity extends Activity {
  		config.m_userAgent = "fiskterror";//AppData.g_userAgent;
  		config.m_traceFile = "/dev/null";//Environment.getExternalStorageDirectory().getPath() + "/dummytracefile";
 
- 		System.out.println("Main - session initialising");
-
- 		int error = session.Initialise(config);
- 		System.out.printf("Main - session initialised [%d]\n", error);
+ 		session.Initialise(config);
  		
- 		System.out.println("Main - logging in");
  		session.Login(username, password);
  		while ( !session.IsLoggedIn() )
  		{
@@ -157,10 +158,10 @@ public class MainActivity extends Activity {
  			try {
  				Thread.sleep(100);
  			} catch (InterruptedException e) {
- 	
  				e.printStackTrace();
  			}
  		}		
+ 		return session;
  		//session.GetTrackFromURI("spotify:track:0xAjq4KAQdJvUyCM7fFZ9K");
 
 // 		System.out.println("Main - logging out");

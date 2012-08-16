@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -56,8 +57,10 @@ public class AddQuestionsActivity extends Activity {
 		        	public void onClick(DialogInterface arg0, int arg1) {
 		        		try {
 			        		String artist = track.split(" - ")[0];
-			        		List<String> alts = getAlternativeArtists(artist);
-			        		Question question = new Question(getSpotifyUri(track), "artist", alts, 0);
+			        		Random r = new Random();
+			        		int i = (r.nextInt(5));
+			        		List<String> alts = getAlternativeArtists(artist, i);
+			        		Question question = new Question(getSpotifyUri(track), "artist", track, alts, i);
 			                Quiz q = Quiz.getInstance();
 			                q.getQuestions().add(question);
 			                Toast.makeText(getBaseContext(), "Question added to quiz.", Toast.LENGTH_SHORT).show();
@@ -72,8 +75,10 @@ public class AddQuestionsActivity extends Activity {
 		        	@Override
 		        	public void onClick(DialogInterface arg0, int arg1) {
 		        		try {
-			        		List<String> alts = getAlternativeTracks(track);
-			        		Question question = new Question(getSpotifyUri(track), "song", alts, 0);
+		        			Random r = new Random();
+			        		int i = (r.nextInt(5));
+			        		List<String> alts = getAlternativeTracks(track, i);
+			        		Question question = new Question(getSpotifyUri(track), "song", track, alts, i);
 			                Quiz q = Quiz.getInstance();
 			                q.getQuestions().add(question);
 			                Toast.makeText(getBaseContext(), "Question added to quiz.", Toast.LENGTH_SHORT).show();
@@ -115,16 +120,22 @@ public class AddQuestionsActivity extends Activity {
 					e.printStackTrace();
 				}
 				
-				Map<String, Object> map = (Map<String, Object>) result.get("results");
-				Map<String, Object> map2 = (Map<String, Object>) map.get("trackmatches");
-				List<Object> tracklist = (List<Object>)map2.get("track");
-				listItems.clear();
-				for (Object o : tracklist){
-					Map<String, Object> trackMap = (Map<String, Object>)o;
-					String track = (String)trackMap.get("artist") + " - " + (String)trackMap.get("name");
-					listItems.add(track);
+				try {
+					Map<String, Object> map = (Map<String, Object>) result.get("results");
+					Map<String, Object> map2 = (Map<String, Object>) map.get("trackmatches");
+					List<Object> tracklist = (List<Object>)map2.get("track");
+					listItems.clear();
+					for (Object o : tracklist){
+						Map<String, Object> trackMap = (Map<String, Object>)o;
+						String track = (String)trackMap.get("artist") + " - " + (String)trackMap.get("name");
+						listItems.add(track);
+					}
+					adapter.notifyDataSetChanged();
 				}
-				adapter.notifyDataSetChanged();
+				catch (Exception e){
+					Toast.makeText(getBaseContext(), "Cannot perform search. Try searching for something else.", Toast.LENGTH_SHORT).show();
+					e.printStackTrace();
+				}
 			}
 		});
         
@@ -138,9 +149,8 @@ public class AddQuestionsActivity extends Activity {
         });
 	}
 	
-	public List<String> getAlternativeArtists(String artist){
+	public List<String> getAlternativeArtists(String artist, int correctAns){
 		List<String> results = new ArrayList<String>();
-		results.add(artist);
 		RestClient rc = new RestClient("http://ws.audioscrobbler.com/2.0/");
 		rc.AddParam("method", "artist.getsimilar");
 		rc.AddParam("artist", artist);
@@ -170,17 +180,15 @@ public class AddQuestionsActivity extends Activity {
 			Map<String, Object> artistMap = (Map<String, Object>)o;
 			String alt = (String)artistMap.get("name");
 			results.add(alt);
-			System.out.println(alt);
 		}
-		
+		results.add(correctAns, artist);
 		return results;
 	}
 	
-	public List<String> getAlternativeTracks(String track){
+	public List<String> getAlternativeTracks(String track, int correctAns){
 		String artist = track.split(" - ")[0];
 		String song = track.split(" - ")[1];
 		List<String> results = new ArrayList<String>();
-		results.add("track");
 		RestClient rc = new RestClient("http://ws.audioscrobbler.com/2.0/");
 		rc.AddParam("method", "track.getsimilar");
 		rc.AddParam("artist", artist);
@@ -213,9 +221,8 @@ public class AddQuestionsActivity extends Activity {
 			Map<String, Object> artistMap = (Map<String, Object>)trackMap.get("artist");
 			String altArtist = (String)artistMap.get("name");
 			results.add(altArtist + " - " + altSong);
-			System.out.println(altArtist + " - " + altSong);
 		}
-		
+		results.add(correctAns, track);
 		return results;
 	}
 	
@@ -250,7 +257,6 @@ public class AddQuestionsActivity extends Activity {
 		Map<String, Object> map2 = (Map<String, Object>) map.get("track");
 		Map<String, Object> map3 = (Map<String, Object>) map2.get("externalids");
 		String s = (String) map3.get("spotify");
-		System.out.println(s);
 		return s;
 	}
 }

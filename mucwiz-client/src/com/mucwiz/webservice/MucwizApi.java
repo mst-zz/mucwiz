@@ -17,17 +17,15 @@ import com.mucwiz.webservice.RestClient.RequestMethod;
 
 public class MucwizApi {
 	
-	public static final String API_URL = "http://ec2-176-34-85-171.eu-west-1.compute.amazonaws.com"; //"http://172.21.113.190:9000";
+	public static final String API_URL = "http://192.168.2.105:9000"; //"http://172.21.113.190:9000";
 	
 	public static void createQuiz(Quiz quiz) throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
 		
 		String jsonData = mapper.writeValueAsString(quiz);
-		System.out.println(jsonData);
 		RestClient client = new RestClient(API_URL + "/mucwiz/create_quiz");
 		client.setContent(jsonData);
 		client.Execute(RequestMethod.POST);
-		
 	}
 	
 	public static Quiz getQuiz(String key) throws Exception {
@@ -40,7 +38,7 @@ public class MucwizApi {
 		client.setContent(content);
 		client.Execute(RequestMethod.POST);
 		String quizString = client.getResponse();
-		System.out.println(quizString);
+		System.out.println("getting quiz: (key: "+ key +") " + quizString);
 		
 		Map data = mapper.readValue(quizString, Map.class);
 		
@@ -56,11 +54,33 @@ public class MucwizApi {
 		stuff.put("key", key);
 		stuff.put("player", player);
 		String content = mapper.writeValueAsString(stuff);
-		
 		RestClient client = new RestClient(API_URL + "/mucwiz/join_quiz");
 		client.setContent(content);
+		client.Execute(RequestMethod.POST);		
+	}
+	
+	public static void startQuiz(String key) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();
+		HashMap<String, String> stuff = new HashMap<String, String>();
+		stuff.put("key", key);
+		String content = mapper.writeValueAsString(stuff);
+		RestClient client = new RestClient(API_URL + "/mucwiz/start_quiz");
+		client.setContent(content);
 		client.Execute(RequestMethod.POST);
-		
+	}
+	
+	public static void sendAnswer(String key, String player, Integer qIndex, Integer answer) throws Exception {
+		ObjectMapper mapper = new ObjectMapper();
+		HashMap<String, Object> stuff = new HashMap<String, Object>();
+		stuff.put("key", key);
+		stuff.put("player", player);
+		stuff.put("question_index", qIndex);
+		stuff.put("answer", answer);
+		String content = mapper.writeValueAsString(stuff);
+		System.out.println(content);
+		RestClient client = new RestClient(API_URL + "/mucwiz/client_answer");
+		client.setContent(content);
+		client.Execute(RequestMethod.POST);
 	}
 	
 	public static void testCreateQuiz() {
@@ -73,7 +93,7 @@ public class MucwizApi {
         	List<String> alternatives = new ArrayList<String>();
         	alternatives.add("bry");
         	alternatives.add("asd");
-        	Question q = new Question("sptofiy:://asdasdasd", "artist", alternatives, 0);
+        	Question q = new Question("sptofiy:://asdasdasd", "artist", "test", alternatives, 0);
         	
         	q.setCorrectAnswer(0);
         	questions.add(q);

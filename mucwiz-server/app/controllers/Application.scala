@@ -29,10 +29,10 @@ object Application extends Controller {
     						(jsObj \ "alternatives").as[List[String]],
     						(jsObj \ "correctAnswer").as[Int])	
     						}
-
-    QuizHandler.setQuiz(key, newQuiz)
-    val status = "ok"
-    Ok(generate(Map("status"->"ok", "key"->key)))
+    
+    QuizHandler.setQuiz(key, Quiz.setStatus(newQuiz, "created"))
+    val r_status = "ok"
+    Ok(generate(Map("r_status"->"ok", "key"->key)))
      
   }
   // {"key":"dummyKey", "player":"PowErPlayer", }
@@ -46,11 +46,10 @@ object Application extends Controller {
   		case Some(quiz) => 
   				val newQuiz = Quiz.joinQuiz(quiz, player)
   				QuizHandler.setQuiz(key, newQuiz)
-  				Ok(generate(Map("status"->"ok")))
-  		case None => Ok(generate(Map("status"->"not found")))
+  				Ok(generate(Map("r_status"->"ok")))
+  		case None => Ok(generate(Map("r_status"->"not found")))
   		}
-  	
-  	
+  
   }
   //{"status": "ok" | "not found", updates (Map(playername -> List(indexofquestion, choise))}
   def get_updated_quiz = Action (parse.json){ request =>
@@ -60,13 +59,13 @@ object Application extends Controller {
 			case Some(quiz) =>
 					val jsonQuiz = Map("updated_answers"->generateAnswerMap(quiz.updates), "key"->key)
 					QuizHandler.setQuiz(key, Quiz.emptyUpdates(quiz))
-					Ok(generate(Map("status"->"ok", "quiz"->jsonQuiz)))
-			case None => Ok(generate(Map("status"->"not found")))
+					Ok(generate(Map("r_status"->"ok", "quiz"->jsonQuiz)))
+			case None => Ok(generate(Map("r_status"->"not found")))
 		}
   }
   
   //{"key":"dummyKey"}
-  // returns {"status":"ok","quiz":{"key":"dummyKey","questions":[{"spotifyUri":"akwekfkake","alternatives":["Mchek","Something"],"rightAnswer":1}],"players":["TheOtheyer"],"answers":[{"player":"TheOtheyer","answers":[{"question_index":0,"answer":1}]}]}
+  // returns {"status":"ok","quiz":{"key":"dummyKey","questions":[{"spotifyUri":"akwekfkake","alternatives":["Mchek","Something"],"correctAnswer":1}],"players":["TheOtheyer"],"answers":[{"player":"TheOtheyer","answers":[{"question_index":0,"answer":1}]}]}
   def get_quiz = Action (parse.json){ request =>
 	val key = (request.body \ "key").as[String]
 	val quiz = QuizHandler.getQuiz(key)
@@ -75,8 +74,8 @@ object Application extends Controller {
 		case Some(quiz) => 
 				val jsonQuiz = generateJsonQuiz(quiz, key)
 				
-				Ok(generate(Map("status"->"ok", "quiz"->jsonQuiz)))
-		case None => Ok(generate(Map("status"->"not found")))
+				Ok(generate(Map("r_status"->"ok", "quiz"->jsonQuiz)))
+		case None => Ok(generate(Map("r_status"->"not found")))
 	}
   }
   
@@ -92,8 +91,8 @@ object Application extends Controller {
 	quiz match {
 		case Some(quiz) => 
 			QuizHandler.setQuiz(key, Quiz.updateQuiz(quiz, player, questionIndex, answer))
-			Ok(generate(Map("status"->"ok")))
-		case None => Ok(generate(Map("status"->"not found")))
+			Ok(generate(Map("r_status"->"ok")))
+		case None => Ok(generate(Map("r_status"->"not found")))
 			
 	}
   }
@@ -106,16 +105,16 @@ object Application extends Controller {
 	quiz match {
 		case Some(quiz) => 
 			QuizHandler.setQuiz(key, Quiz.setStatus(quiz, "started"))
-			Ok(generate(Map("status"->"ok")))
-		case None => Ok(generate(Map("status"->"not found")))
+			Ok(generate(Map("r_status"->"ok")))
+		case None => Ok(generate(Map("r_status"->"not found")))
 			
 	}
   }
   
-  //{ "key":"dummyKey", "questions": [ {"spotify_uri":"akwekfkake","type": "artist", "answers": ["Mchek", "Something"], correct_answer: 1}] }
+  //{ "key":"dummyKey", "questions": [ {"spotify_uri":"akwekfkake","type": "artist", "alternatives": ["Mchek", "Something"], correct_answer: 1}] }
   def generateJsonQuiz(quiz: Quiz, key: String) = {
 	  val answerMap = generateAnswerMap(quiz.answers)
-	  Map("key"->key, "questions"-> quiz.questions, "players"->quiz.players, "answers"->answerMap )
+	  Map("key"->key, "status"->quiz.status, "questions"-> quiz.questions, "players"->quiz.players, "answers"->answerMap )
   }
   
   def generateAnswerMap(answers: Map[String, List[(Int,Int)]]) = {

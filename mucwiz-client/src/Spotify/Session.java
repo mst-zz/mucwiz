@@ -170,7 +170,7 @@ public class Session {
 	}
 
 	public void OnGetAudioBufferStats(AudioBufferStats stats) {
-
+		System.out.println("JLibSpotify - getting buffer stats");
 	}
 	public void GetTrackFromURI(String str) {
 		GetTrackFromURI(m_nativePtr, str);

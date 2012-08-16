@@ -26,6 +26,7 @@ public class CreateQuizActivity extends Activity {
 					Quiz q = Quiz.getInstance();
 					q.setKey(quizName);
 
+					
 					Intent i = new Intent(CreateQuizActivity.this, EditQuizActivity.class);
 					
 					startActivity(i);

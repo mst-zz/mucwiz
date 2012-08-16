@@ -34,6 +34,7 @@ public class JoinActivity extends Activity {
 				}
 				
 				setContentView(R.layout.main);
+								
 				Intent i = new Intent(JoinActivity.this, JoinedActivity.class);
 				startActivity(i);
 			}
